@@ -1,20 +1,240 @@
-const DRAFT_KEY='rdo-facil-rascunho';const HISTORY_KEY='rdo-facil-historico';let currentId=null;let currentStatus='draft';
-function formValues(){return Object.fromEntries(ids.map(id=>[id,el[id].value]))}
-function savedReports(){try{return JSON.parse(localStorage.getItem(HISTORY_KEY)||'[]').map(r=>({...r,status:r.status||'open',log:r.log||[]}))}catch{return[]}}
-function saveReports(items){localStorage.setItem(HISTORY_KEY,JSON.stringify(items))}
-function saveDraft(){if(currentStatus!=='closed')localStorage.setItem(DRAFT_KEY,JSON.stringify(formValues()))}
-function addLog(report,event){report.log=[...(report.log||[]),{event,at:new Date().toISOString()}];report.updatedAt=new Date().toISOString();return report}
-function fillForm(data){ids.forEach(id=>el[id].value=data[id]||'');if(!el.data.value)el.data.value=new Date().toISOString().slice(0,10);currentStatus=data.status||'open';atualizar();saveDraft();setMode()}
-function dateBR(value){return value?new Date(value+'T12:00:00').toLocaleDateString('pt-BR'):'Sem data'}
-function timeBR(value){return new Date(value).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'})}
-function escapeHtml(value){return String(value).replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]))}
-function setMode(){const closed=currentStatus==='closed',draft=currentStatus==='draft';document.querySelectorAll('.formCard input,.formCard textarea,.formCard select,.quick button').forEach(node=>node.disabled=closed);const save=document.getElementById('salvar');save.hidden=closed;save.textContent=draft?'Abrir RDO do dia':'Salvar alterações';const close=document.getElementById('fechar');close.hidden=draft;close.textContent=closed?'Reabrir RDO':'Fechar RDO';const badge=document.getElementById('statusBadge');badge.textContent=draft?'Rascunho':closed?'Concluído':'Em andamento';badge.classList.toggle('closed',closed)}
-function renderHistory(){const list=document.getElementById('historico');const reports=savedReports();if(!reports.length){list.innerHTML='<div class="empty">Nenhum RDO salvo ainda.</div>';return}list.innerHTML=reports.map(report=>`<article class="historyItem"><div><strong>${escapeHtml(report.obra||'Obra não informada')}<span class="statusPill ${report.status==='closed'?'closed':''}">${report.status==='closed'?'Concluído':'Em andamento'}</span></strong><small>${escapeHtml(dateBR(report.data))} · ${escapeHtml(report.local||'Local não informado')}</small></div><div class="historyActions"><button data-open="${report.id}">Abrir</button><button data-copy="${report.id}">Duplicar</button><button class="delete" data-delete="${report.id}">Excluir</button></div><details><summary>Consultar log (${report.log.length})</summary><ul class="logList">${report.log.slice().reverse().map(item=>`<li>${escapeHtml(timeBR(item.at))} — ${escapeHtml(item.event)}</li>`).join('')}</ul></details></article>`).join('')}
-function persist(event='Alterações salvas'){const reports=savedReports();if(currentId){const index=reports.findIndex(report=>report.id===currentId);if(index>=0){reports[index]=addLog({...reports[index],...formValues(),status:currentStatus==='draft'?'open':currentStatus},event);currentStatus=reports[index].status}else currentId=null}if(!currentId){currentId=String(Date.now());currentStatus='open';reports.unshift(addLog({...formValues(),id:currentId,status:'open',log:[]},'RDO aberto'))}saveReports(reports);localStorage.removeItem(DRAFT_KEY);renderHistory();setMode();return reports.find(r=>r.id===currentId)}
-const draft=localStorage.getItem(DRAFT_KEY);if(draft){try{fillForm({...JSON.parse(draft),status:'draft'})}catch{setMode()}}else setMode();
-ids.forEach(id=>el[id].addEventListener('input',saveDraft));
-document.getElementById('salvar').onclick=()=>{const opening=currentStatus==='draft';persist(opening?'RDO aberto':'Alterações salvas');const status=document.getElementById('saveStatus');status.textContent=opening?'RDO aberto e em andamento':'Alterações salvas';setTimeout(()=>status.textContent='',2200)};
-document.getElementById('fechar').onclick=()=>{if(currentStatus==='closed'){const reports=savedReports();const index=reports.findIndex(r=>r.id===currentId);if(index>=0){reports[index]=addLog({...reports[index],status:'open'},'RDO reaberto');currentStatus='open';saveReports(reports);renderHistory();setMode()}return}persist();const reports=savedReports();const index=reports.findIndex(r=>r.id===currentId);if(index>=0){reports[index]=addLog({...reports[index],status:'closed'},'RDO fechado');currentStatus='closed';saveReports(reports);renderHistory();setMode()}};
-document.getElementById('novo').onclick=()=>{currentId=null;currentStatus='draft';ids.forEach(id=>el[id].value='');el.data.value=new Date().toISOString().slice(0,10);localStorage.removeItem(DRAFT_KEY);atualizar();saveDraft();setMode();scrollTo({top:0,behavior:'smooth'})};
-document.getElementById('historico').onclick=event=>{const button=event.target.closest('button');if(!button)return;const id=button.dataset.open||button.dataset.copy||button.dataset.delete;const reports=savedReports();const report=reports.find(item=>item.id===id);if(button.dataset.delete){if(confirm('Excluir este RDO deste aparelho?')){saveReports(reports.filter(item=>item.id!==id));if(currentId===id){currentId=null;currentStatus='draft'}renderHistory();setMode()}return}if(report){currentId=button.dataset.copy?null:report.id;fillForm({...report,status:button.dataset.copy?'draft':report.status});scrollTo({top:0,behavior:'smooth'})}};
+const DRAFT_KEY = "rdo-facil-rascunho";
+const HISTORY_KEY = "rdo-facil-historico";
+let currentId = null;
+let currentStatus = "draft";
+function formValues() {
+  return Object.fromEntries(ids.map((id) => [id, el[id].value]));
+}
+function savedReports() {
+  try {
+    return JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]").map((r) => ({
+      ...r,
+      status: r.status || "open",
+      log: r.log || [],
+    }));
+  } catch {
+    return [];
+  }
+}
+function saveReports(items) {
+  localStorage.setItem(HISTORY_KEY, JSON.stringify(items));
+}
+function saveDraft() {
+  if (currentStatus !== "closed")
+    localStorage.setItem(DRAFT_KEY, JSON.stringify(formValues()));
+}
+function addLog(report, event) {
+  report.log = [...(report.log || []), { event, at: new Date().toISOString() }];
+  report.updatedAt = new Date().toISOString();
+  return report;
+}
+function fillForm(data) {
+  ids.forEach((id) => (el[id].value = data[id] || ""));
+  if (!el.data.value) el.data.value = new Date().toISOString().slice(0, 10);
+  currentStatus = data.status || "open";
+  atualizar();
+  saveDraft();
+  setMode();
+}
+function dateBR(value) {
+  return value
+    ? new Date(value + "T12:00:00").toLocaleDateString("pt-BR")
+    : "Sem data";
+}
+function timeBR(value) {
+  return new Date(value).toLocaleString("pt-BR", {
+    dateStyle: "short",
+    timeStyle: "short",
+  });
+}
+function escapeHtml(value) {
+  return String(value).replace(
+    /[&<>"']/g,
+    (char) =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[
+        char
+      ],
+  );
+}
+function setMode() {
+  const closed = currentStatus === "closed",
+    draft = currentStatus === "draft";
+  document
+    .querySelectorAll(
+      ".formCard input,.formCard textarea,.formCard select,.quick button,.serviceEntry button",
+    )
+    .forEach((node) => (node.disabled = closed));
+  const save = document.getElementById("salvar");
+  save.hidden = closed;
+  save.textContent = draft ? "Abrir RDO do dia" : "Salvar alterações";
+  const close = document.getElementById("fechar");
+  close.hidden = draft;
+  close.textContent = closed ? "Reabrir RDO" : "Fechar RDO";
+  const badge = document.getElementById("statusBadge");
+  badge.textContent = draft
+    ? "Rascunho"
+    : closed
+      ? "Concluído"
+      : "Em andamento";
+  badge.classList.toggle("closed", closed);
+}
+function renderHistory() {
+  const list = document.getElementById("historico");
+  const reports = savedReports();
+  if (!reports.length) {
+    list.innerHTML = '<div class="empty">Nenhum RDO salvo ainda.</div>';
+    return;
+  }
+  list.innerHTML = reports
+    .map(
+      (report) =>
+        `<article class="historyItem"><div><strong>${escapeHtml(report.obra || "Obra não informada")}<span class="statusPill ${report.status === "closed" ? "closed" : ""}">${report.status === "closed" ? "Concluído" : "Em andamento"}</span></strong><small>${escapeHtml(dateBR(report.data))} · ${escapeHtml(report.local || "Local não informado")}</small></div><div class="historyActions"><button data-open="${report.id}">Abrir</button><button data-copy="${report.id}">Duplicar</button><button class="delete" data-delete="${report.id}">Excluir</button></div><details><summary>Consultar log (${report.log.length})</summary><ul class="logList">${report.log
+          .slice()
+          .reverse()
+          .map(
+            (item) =>
+              `<li>${escapeHtml(timeBR(item.at))} — ${escapeHtml(item.event)}</li>`,
+          )
+          .join("")}</ul></details></article>`,
+    )
+    .join("");
+}
+function persist(event = "Alterações salvas") {
+  const reports = savedReports();
+  if (currentId) {
+    const index = reports.findIndex((report) => report.id === currentId);
+    if (index >= 0) {
+      reports[index] = addLog(
+        {
+          ...reports[index],
+          ...formValues(),
+          status: currentStatus === "draft" ? "open" : currentStatus,
+        },
+        event,
+      );
+      currentStatus = reports[index].status;
+    } else currentId = null;
+  }
+  if (!currentId) {
+    currentId = String(Date.now());
+    currentStatus = "open";
+    reports.unshift(
+      addLog(
+        { ...formValues(), id: currentId, status: "open", log: [] },
+        "RDO aberto",
+      ),
+    );
+  }
+  saveReports(reports);
+  localStorage.removeItem(DRAFT_KEY);
+  renderHistory();
+  setMode();
+  return reports.find((r) => r.id === currentId);
+}
+const draft = localStorage.getItem(DRAFT_KEY);
+if (draft) {
+  try {
+    fillForm({ ...JSON.parse(draft), status: "draft" });
+  } catch {
+    setMode();
+  }
+} else setMode();
+ids.forEach((id) => el[id].addEventListener("input", saveDraft));
+document.getElementById("adicionarServico").onclick = () => {
+  const input = document.getElementById("servicoRapido");
+  const text = input.value.trim().replace(/^\*+\s*/, "");
+  if (!text) return;
+  el.servicos.value = el.servicos.value.trim()
+    ? `${el.servicos.value.trim()}\n\n* ${text}`
+    : `* ${text}`;
+  input.value = "";
+  atualizar();
+  saveDraft();
+  if (currentStatus === "open") persist("Serviço executado adicionado");
+  input.focus();
+};
+document.getElementById("servicoRapido").addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    document.getElementById("adicionarServico").click();
+  }
+});
+document.getElementById("salvar").onclick = () => {
+  const opening = currentStatus === "draft";
+  persist(opening ? "RDO aberto" : "Alterações salvas");
+  const status = document.getElementById("saveStatus");
+  status.textContent = opening
+    ? "RDO aberto e em andamento"
+    : "Alterações salvas";
+  setTimeout(() => (status.textContent = ""), 2200);
+};
+document.getElementById("fechar").onclick = () => {
+  if (currentStatus === "closed") {
+    const reports = savedReports();
+    const index = reports.findIndex((r) => r.id === currentId);
+    if (index >= 0) {
+      reports[index] = addLog(
+        { ...reports[index], status: "open" },
+        "RDO reaberto",
+      );
+      currentStatus = "open";
+      saveReports(reports);
+      renderHistory();
+      setMode();
+    }
+    return;
+  }
+  persist();
+  const reports = savedReports();
+  const index = reports.findIndex((r) => r.id === currentId);
+  if (index >= 0) {
+    reports[index] = addLog(
+      { ...reports[index], status: "closed" },
+      "RDO fechado",
+    );
+    currentStatus = "closed";
+    saveReports(reports);
+    renderHistory();
+    setMode();
+  }
+};
+document.getElementById("novo").onclick = () => {
+  currentId = null;
+  currentStatus = "draft";
+  ids.forEach((id) => (el[id].value = ""));
+  el.data.value = new Date().toISOString().slice(0, 10);
+  localStorage.removeItem(DRAFT_KEY);
+  atualizar();
+  saveDraft();
+  setMode();
+  scrollTo({ top: 0, behavior: "smooth" });
+};
+document.getElementById("historico").onclick = (event) => {
+  const button = event.target.closest("button");
+  if (!button) return;
+  const id =
+    button.dataset.open || button.dataset.copy || button.dataset.delete;
+  const reports = savedReports();
+  const report = reports.find((item) => item.id === id);
+  if (button.dataset.delete) {
+    if (confirm("Excluir este RDO deste aparelho?")) {
+      saveReports(reports.filter((item) => item.id !== id));
+      if (currentId === id) {
+        currentId = null;
+        currentStatus = "draft";
+      }
+      renderHistory();
+      setMode();
+    }
+    return;
+  }
+  if (report) {
+    currentId = button.dataset.copy ? null : report.id;
+    fillForm({
+      ...report,
+      status: button.dataset.copy ? "draft" : report.status,
+    });
+    scrollTo({ top: 0, behavior: "smooth" });
+  }
+};
 renderHistory();

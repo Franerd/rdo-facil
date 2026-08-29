@@ -348,7 +348,7 @@
         }
       }
     </style>
-    <link rel="stylesheet" href="storage.css?v=6" />
+    <link rel="stylesheet" href="storage.css?v=7" />
   </head>
   <body>
     <header class="topbar">
@@ -413,7 +413,14 @@
             id="servicos"
             placeholder="Descreva os serviços, quantidades e trechos executados..."
           ></textarea></label
-        ><label
+        ><div class="serviceEntry">
+          <label for="servicoRapido">Adicionar serviço executado</label>
+          <div>
+            <input id="servicoRapido" type="text" placeholder="Digite uma pequena atualização da obra..." />
+            <button id="adicionarServico" type="button">Lançar serviço</button>
+          </div>
+          <small>Cada lançamento será acrescentado como um novo parágrafo iniciado por *.</small>
+        </div><label
           >Ocorrências<textarea
             id="ocorrencias"
             placeholder="Registre fatos relevantes do período..."
@@ -523,6 +530,6 @@
       };
       atualizar();
     </script>
-    <script src="storage.js?v=6"></script>
+    <script src="storage.js?v=7"></script>
   </body>
 </html>
