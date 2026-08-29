@@ -348,7 +348,7 @@
         }
       }
     </style>
-    <link rel="stylesheet" href="storage.css?v=8" />
+    <link rel="stylesheet" href="storage.css?v=9" />
   </head>
   <body>
     <header class="topbar">
@@ -405,9 +405,10 @@
           </div>
         </div>
         <label
-          >Equipe no local<input
+          >Efetivo<textarea
             id="equipe"
-            placeholder="Ex.: 1 encarregado, 2 oficiais e 3 ajudantes" /></label
+            placeholder="Digite uma função por linha&#10;Ex.: 1 encarregado&#10;2 oficiais&#10;3 ajudantes"
+          ></textarea></label
         ><label
           >Serviços executados<textarea
             id="servicos"
@@ -502,7 +503,7 @@
         const d = el.data.value
           ? new Date(el.data.value + "T12:00:00").toLocaleDateString("pt-BR")
           : "—";
-        return `RELATÓRIO DIÁRIO DE OBRA\n\nObra: ${el.obra.value || "—"}\nLocal: ${el.local.value || "—"}\nData: ${d}\nCondições climáticas: ${el.clima.value || "—"}\nEquipe: ${el.equipe.value || "—"}\n\nSERVIÇOS EXECUTADOS\n${el.servicos.value || "—"}\n\nOCORRÊNCIAS\n${el.ocorrencias.value || "Sem ocorrências."}\n\nEQUIPAMENTOS UTILIZADOS\n${el.equipamentos.value || "—"}\n\nOBSERVAÇÕES\n${el.observacoes.value || "—"}`;
+        return `RELATÓRIO DIÁRIO DE OBRA\n\nObra: ${el.obra.value || "—"}\nLocal: ${el.local.value || "—"}\nData: ${d}\nCondições climáticas: ${el.clima.value || "—"}\n\nSERVIÇOS EXECUTADOS\n${el.servicos.value || "—"}\n\nOCORRÊNCIAS\n${el.ocorrencias.value || "Sem ocorrências."}\n\nEQUIPAMENTOS UTILIZADOS\n${el.equipamentos.value || "—"}\n\nOBSERVAÇÕES\n${el.observacoes.value || "—"}\n\nEFETIVO\n${el.equipe.value || "—"}`;
       }
       function atualizar() {
         document.getElementById("relatorio").textContent = gerar();
@@ -530,6 +531,6 @@
       };
       atualizar();
     </script>
-    <script src="storage.js?v=8"></script>
+    <script src="storage.js?v=9"></script>
   </body>
 </html>
