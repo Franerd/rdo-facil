@@ -60,7 +60,7 @@ function reportText(report) {
   const date = report.data
     ? new Date(report.data + "T12:00:00").toLocaleDateString("pt-BR")
     : "—";
-  return `RELATÓRIO DIÁRIO DE OBRA\n\nObra: ${report.obra || "—"}\nLocal: ${report.local || "—"}\nData: ${date}\nCondições climáticas: ${report.clima || "—"}\n\nSERVIÇOS EXECUTADOS\n${report.servicos || "—"}\n\nOCORRÊNCIAS\n${report.ocorrencias || "Sem ocorrências."}\n\nEQUIPAMENTOS UTILIZADOS\n${report.equipamentos || "—"}\n\nOBSERVAÇÕES\n${report.observacoes || "—"}\n\nEFETIVO\n${report.equipe || "—"}`;
+  return `RELATÓRIO DIÁRIO DE OBRA\n\nObra: ${report.obra || "—"}\nLocal: ${report.local || "—"}\nData: ${date}\nCondições climáticas: ${report.clima || "—"}\n\nSERVIÇOS EXECUTADOS\n${report.servicos || "—"}\n\nOCORRÊNCIAS\n${report.ocorrencias || "Sem ocorrências."}\n\nEQUIPAMENTOS UTILIZADOS\n${report.equipamentos || "—"}\n\nOBSERVAÇÕES\n${report.observacoes || "—"}\n\nEFETIVO\n${formatEfetivo(report.equipe)}`;
 }
 async function shareReport(report) {
   const text = reportText(report);

@@ -348,7 +348,7 @@
         }
       }
     </style>
-    <link rel="stylesheet" href="storage.css?v=9" />
+    <link rel="stylesheet" href="storage.css?v=10" />
   </head>
   <body>
     <header class="topbar">
@@ -499,11 +499,18 @@
         ids.map((id) => [id, document.getElementById(id)]),
       );
       el.data.value = new Date().toISOString().slice(0, 10);
+      function formatEfetivo(value) {
+        const items = String(value || "")
+          .split(/\r?\n/)
+          .map((item) => item.trim().replace(/^\*+\s*/, ""))
+          .filter(Boolean);
+        return items.length ? items.map((item) => `* ${item}`).join("\n\n") : "—";
+      }
       function gerar() {
         const d = el.data.value
           ? new Date(el.data.value + "T12:00:00").toLocaleDateString("pt-BR")
           : "—";
-        return `RELATÓRIO DIÁRIO DE OBRA\n\nObra: ${el.obra.value || "—"}\nLocal: ${el.local.value || "—"}\nData: ${d}\nCondições climáticas: ${el.clima.value || "—"}\n\nSERVIÇOS EXECUTADOS\n${el.servicos.value || "—"}\n\nOCORRÊNCIAS\n${el.ocorrencias.value || "Sem ocorrências."}\n\nEQUIPAMENTOS UTILIZADOS\n${el.equipamentos.value || "—"}\n\nOBSERVAÇÕES\n${el.observacoes.value || "—"}\n\nEFETIVO\n${el.equipe.value || "—"}`;
+        return `RELATÓRIO DIÁRIO DE OBRA\n\nObra: ${el.obra.value || "—"}\nLocal: ${el.local.value || "—"}\nData: ${d}\nCondições climáticas: ${el.clima.value || "—"}\n\nSERVIÇOS EXECUTADOS\n${el.servicos.value || "—"}\n\nOCORRÊNCIAS\n${el.ocorrencias.value || "Sem ocorrências."}\n\nEQUIPAMENTOS UTILIZADOS\n${el.equipamentos.value || "—"}\n\nOBSERVAÇÕES\n${el.observacoes.value || "—"}\n\nEFETIVO\n${formatEfetivo(el.equipe.value)}`;
       }
       function atualizar() {
         document.getElementById("relatorio").textContent = gerar();
@@ -531,6 +538,6 @@
       };
       atualizar();
     </script>
-    <script src="storage.js?v=9"></script>
+    <script src="storage.js?v=10"></script>
   </body>
 </html>
