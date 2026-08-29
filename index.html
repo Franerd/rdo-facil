@@ -1,5 +1,527 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>RDO Fácil — Relatório Diário de Obra</title><meta name="description" content="Preencha, gere e compartilhe seu relatório diário de obra em poucos minutos."><style>
-:root{--ink:#18211d;--muted:#6d7772;--green:#1e5c45;--lime:#dff25f;--paper:#f4f2eb;--line:#d9ddd8}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,Helvetica,sans-serif}button,input,textarea,select{font:inherit}.topbar{height:76px;display:flex;align-items:center;justify-content:space-between;padding:0 max(24px,calc((100vw - 1280px)/2));border-bottom:1px solid var(--line);background:#faf9f5}.brand{display:flex;align-items:center;gap:12px}.brandMark{width:38px;height:38px;border-radius:11px;background:var(--green);color:white;display:grid;place-items:center;font-weight:800;font-family:Georgia,serif;font-size:22px}.brand strong,.brand small{display:block}.brand strong{font-size:15px}.brand small{font-size:11px;color:var(--muted);margin-top:2px}.saved{font-size:12px;color:var(--green)}.hero{max-width:1280px;margin:auto;padding:62px 24px 38px}.eyebrow{font-size:11px;letter-spacing:.16em;font-weight:800;color:var(--green);margin:0 0 15px}.hero h1{font-family:Georgia,serif;font-weight:400;font-size:clamp(42px,6vw,76px);line-height:.95;letter-spacing:-.04em;margin:0}.hero h1 em{color:var(--green);font-weight:400}.hero>p:last-child{max-width:520px;color:var(--muted);font-size:16px;line-height:1.6;margin:24px 0 0}.workspace{max-width:1280px;margin:0 auto 80px;padding:0 24px;display:grid;grid-template-columns:minmax(0,1.55fr) minmax(340px,.85fr);gap:26px;align-items:start}.formCard,.previewCard{background:#fff;border:1px solid var(--line);border-radius:18px}.formCard{padding:34px}.sectionTitle{display:flex;gap:14px;align-items:center;margin:5px 0 22px}.sectionTitle:not(:first-child){margin-top:38px;padding-top:32px;border-top:1px solid #e9ebe8}.sectionTitle>span{font-family:Georgia,serif;color:var(--green);background:#edf4ee;width:38px;height:38px;display:grid;place-items:center;border-radius:50%;font-size:13px}.sectionTitle h2{font-family:Georgia,serif;font-size:23px;font-weight:400;margin:0}.sectionTitle p{font-size:12px;color:var(--muted);margin:4px 0 0}.grid{display:grid;gap:16px}.two{grid-template-columns:1fr 1fr}label{display:block;font-size:12px;font-weight:700;margin:0 0 16px;color:#36413c}input,textarea,select{display:block;width:100%;margin-top:8px;border:1px solid var(--line);border-radius:10px;padding:13px 14px;background:#fbfcfa;color:var(--ink);outline:none}input:focus,textarea:focus,select:focus{border-color:var(--green);box-shadow:0 0 0 3px #1e5c4514}textarea{resize:vertical;min-height:94px;line-height:1.45}.quick{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin-top:-5px}.quick span{font-size:11px;color:var(--muted)}.quick button{border:1px solid var(--line);background:white;border-radius:999px;padding:7px 10px;font-size:11px;color:var(--green);cursor:pointer}.previewCard{position:sticky;top:22px;overflow:hidden;box-shadow:0 18px 50px #1c2a2310}.previewHead{background:var(--green);color:white;padding:26px;display:flex;justify-content:space-between;align-items:center}.previewHead p{font-size:9px;letter-spacing:.17em;margin:0 0 5px;color:#d1e4d9}.previewHead h2{font-family:Georgia,serif;font-size:25px;font-weight:400;margin:0}.previewHead>span{border:1px solid #ffffff45;border-radius:8px;padding:9px;font-size:11px;font-weight:bold}.previewCard pre{white-space:pre-wrap;font-family:Arial,sans-serif;font-size:11px;line-height:1.65;margin:0;padding:28px;min-height:430px;color:#3d4742}.actions{display:grid;gap:9px;padding:0 24px 14px}.actions button{border:1px solid var(--line);border-radius:10px;padding:12px;background:white;font-weight:700;font-size:12px;cursor:pointer}.actions .primary{background:var(--lime);border-color:var(--lime);color:#233326}.privacy{text-align:center;color:var(--muted);font-size:10px;margin:3px 0 20px}@media(max-width:850px){.workspace{grid-template-columns:1fr}.previewCard{position:static}.hero{padding-top:42px}.saved{display:none}}@media(max-width:560px){.topbar{padding:0 18px}.hero,.workspace{padding-left:16px;padding-right:16px}.hero h1{font-size:46px}.formCard{padding:22px}.two{grid-template-columns:1fr}.workspace{margin-bottom:30px}.previewCard pre{min-height:300px}}@media print{.topbar,.hero,.formCard,.actions,.privacy{display:none}.workspace{display:block;margin:0;padding:0}.previewCard{border:none;box-shadow:none}.previewHead{background:white;color:black;border-bottom:2px solid #222}.previewCard pre{font-size:13px}}
-</style></head><body><header class="topbar"><div class="brand"><span class="brandMark">R</span><div><strong>RDO Fácil</strong><small>Relatório Diário de Obra</small></div></div><span class="saved">● Dados somente neste aparelho</span></header><section class="hero"><p class="eyebrow">REGISTRO DE CAMPO</p><h1>O dia da obra,<br><em>bem documentado.</em></h1><p>Preencha os dados essenciais e tenha um relatório pronto para copiar, imprimir ou enviar.</p></section><div class="workspace"><form class="formCard"><div class="sectionTitle"><span>01</span><div><h2>Identificação</h2><p>Informações básicas do registro</p></div></div><div class="grid two"><label>Nome da obra<input id="obra" placeholder="Ex.: Rede de abastecimento — Setor 03"></label><label>Local / trecho<input id="local" placeholder="Rua, bairro ou estaca"></label><label>Data<input id="data" type="date"></label><label>Condição do tempo<select id="clima"><option>Ensolarado</option><option>Nublado</option><option>Chuva leve</option><option>Chuva intensa</option><option>Tempo instável</option></select></label></div><div class="sectionTitle"><span>02</span><div><h2>Produção do dia</h2><p>O que aconteceu em campo</p></div></div><label>Equipe no local<input id="equipe" placeholder="Ex.: 1 encarregado, 2 oficiais e 3 ajudantes"></label><label>Serviços executados<textarea id="servicos" placeholder="Descreva os serviços, quantidades e trechos executados..."></textarea></label><label>Ocorrências<textarea id="ocorrencias" placeholder="Registre fatos relevantes do período..."></textarea></label><div class="quick"><span>Sugestões rápidas:</span><button type="button" data-occ="chuva">Chuva</button><button type="button" data-occ="agua">Ligação de água</button><button type="button" data-occ="nenhuma">Sem ocorrências</button></div><div class="sectionTitle"><span>03</span><div><h2>Complementos</h2><p>Recursos e observações finais</p></div></div><div class="grid two"><label>Equipamentos utilizados<textarea id="equipamentos" placeholder="Máquinas, veículos e ferramentas..."></textarea></label><label>Observações<textarea id="observacoes" placeholder="Pendências ou informações adicionais..."></textarea></label></div></form><aside class="previewCard"><div class="previewHead"><div><p>PRÉ-VISUALIZAÇÃO</p><h2>Relatório pronto</h2></div><span>RDO</span></div><pre id="relatorio"></pre><div class="actions"><button class="primary" id="whatsapp">Enviar por WhatsApp</button><button id="copiar">Copiar texto</button><button onclick="window.print()">Imprimir / PDF</button></div><p class="privacy">Seus dados não são enviados para nenhum servidor.</p></aside></div><script>
-const ids=['obra','local','data','clima','equipe','servicos','ocorrencias','equipamentos','observacoes'];const el=Object.fromEntries(ids.map(id=>[id,document.getElementById(id)]));el.data.value=new Date().toISOString().slice(0,10);function gerar(){const d=el.data.value?new Date(el.data.value+'T12:00:00').toLocaleDateString('pt-BR'):'—';return `RELATÓRIO DIÁRIO DE OBRA\n\nObra: ${el.obra.value||'—'}\nLocal: ${el.local.value||'—'}\nData: ${d}\nCondições climáticas: ${el.clima.value||'—'}\nEquipe: ${el.equipe.value||'—'}\n\nSERVIÇOS EXECUTADOS\n${el.servicos.value||'—'}\n\nOCORRÊNCIAS\n${el.ocorrencias.value||'Sem ocorrências.'}\n\nEQUIPAMENTOS UTILIZADOS\n${el.equipamentos.value||'—'}\n\nOBSERVAÇÕES\n${el.observacoes.value||'—'}`}function atualizar(){document.getElementById('relatorio').textContent=gerar()}ids.forEach(id=>el[id].addEventListener('input',atualizar));document.querySelectorAll('[data-occ]').forEach(b=>b.onclick=()=>{const textos={chuva:'Condições climáticas adversas (chuva) impactaram a execução dos serviços, devido ao acúmulo de água e à saturação do solo na área de trabalho.',agua:'Interferência em ligação de água de residência durante a execução dos serviços, corrigida no local mediante emenda da tubulação.',nenhuma:'Não foram registradas ocorrências no período.'};el.ocorrencias.value=textos[b.dataset.occ];atualizar()});document.getElementById('whatsapp').onclick=()=>open('https://wa.me/?text='+encodeURIComponent(gerar()),'_blank');document.getElementById('copiar').onclick=async function(){await navigator.clipboard.writeText(gerar());this.textContent='Copiado!';setTimeout(()=>this.textContent='Copiar texto',1800)};atualizar();
-</script></body></html>
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>RDO Fácil — Relatório Diário de Obra</title>
+    <meta
+      name="description"
+      content="Preencha, gere e compartilhe seu relatório diário de obra em poucos minutos."
+    />
+    <style>
+      :root {
+        --ink: #18211d;
+        --muted: #6d7772;
+        --green: #1e5c45;
+        --lime: #dff25f;
+        --paper: #f4f2eb;
+        --line: #d9ddd8;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      button,
+      input,
+      textarea,
+      select {
+        font: inherit;
+      }
+      .topbar {
+        height: 76px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 max(24px, calc((100vw - 1280px) / 2));
+        border-bottom: 1px solid var(--line);
+        background: #faf9f5;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .brandMark {
+        width: 38px;
+        height: 38px;
+        border-radius: 11px;
+        background: var(--green);
+        color: white;
+        display: grid;
+        place-items: center;
+        font-weight: 800;
+        font-family: Georgia, serif;
+        font-size: 22px;
+      }
+      .brand strong,
+      .brand small {
+        display: block;
+      }
+      .brand strong {
+        font-size: 15px;
+      }
+      .brand small {
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+      .saved {
+        font-size: 12px;
+        color: var(--green);
+      }
+      .hero {
+        max-width: 1280px;
+        margin: auto;
+        padding: 62px 24px 38px;
+      }
+      .eyebrow {
+        font-size: 11px;
+        letter-spacing: 0.16em;
+        font-weight: 800;
+        color: var(--green);
+        margin: 0 0 15px;
+      }
+      .hero h1 {
+        font-family: Georgia, serif;
+        font-weight: 400;
+        font-size: clamp(42px, 6vw, 76px);
+        line-height: 0.95;
+        letter-spacing: -0.04em;
+        margin: 0;
+      }
+      .hero h1 em {
+        color: var(--green);
+        font-weight: 400;
+      }
+      .hero > p:last-child {
+        max-width: 520px;
+        color: var(--muted);
+        font-size: 16px;
+        line-height: 1.6;
+        margin: 24px 0 0;
+      }
+      .workspace {
+        max-width: 1280px;
+        margin: 0 auto 80px;
+        padding: 0 24px;
+        display: grid;
+        grid-template-columns: minmax(0, 1.55fr) minmax(340px, 0.85fr);
+        gap: 26px;
+        align-items: start;
+      }
+      .formCard,
+      .previewCard {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+      }
+      .formCard {
+        padding: 34px;
+      }
+      .sectionTitle {
+        display: flex;
+        gap: 14px;
+        align-items: center;
+        margin: 5px 0 22px;
+      }
+      .sectionTitle:not(:first-child) {
+        margin-top: 38px;
+        padding-top: 32px;
+        border-top: 1px solid #e9ebe8;
+      }
+      .sectionTitle > span {
+        font-family: Georgia, serif;
+        color: var(--green);
+        background: #edf4ee;
+        width: 38px;
+        height: 38px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        font-size: 13px;
+      }
+      .sectionTitle h2 {
+        font-family: Georgia, serif;
+        font-size: 23px;
+        font-weight: 400;
+        margin: 0;
+      }
+      .sectionTitle p {
+        font-size: 12px;
+        color: var(--muted);
+        margin: 4px 0 0;
+      }
+      .grid {
+        display: grid;
+        gap: 16px;
+      }
+      .two {
+        grid-template-columns: 1fr 1fr;
+      }
+      label {
+        display: block;
+        font-size: 12px;
+        font-weight: 700;
+        margin: 0 0 16px;
+        color: #36413c;
+      }
+      input,
+      textarea,
+      select {
+        display: block;
+        width: 100%;
+        margin-top: 8px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 13px 14px;
+        background: #fbfcfa;
+        color: var(--ink);
+        outline: none;
+      }
+      input:focus,
+      textarea:focus,
+      select:focus {
+        border-color: var(--green);
+        box-shadow: 0 0 0 3px #1e5c4514;
+      }
+      textarea {
+        resize: vertical;
+        min-height: 94px;
+        line-height: 1.45;
+      }
+      .quick {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        align-items: center;
+        margin-top: -5px;
+      }
+      .quick span {
+        font-size: 11px;
+        color: var(--muted);
+      }
+      .quick button {
+        border: 1px solid var(--line);
+        background: white;
+        border-radius: 999px;
+        padding: 7px 10px;
+        font-size: 11px;
+        color: var(--green);
+        cursor: pointer;
+      }
+      .previewCard {
+        position: sticky;
+        top: 22px;
+        overflow: hidden;
+        box-shadow: 0 18px 50px #1c2a2310;
+      }
+      .previewHead {
+        background: var(--green);
+        color: white;
+        padding: 26px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .previewHead p {
+        font-size: 9px;
+        letter-spacing: 0.17em;
+        margin: 0 0 5px;
+        color: #d1e4d9;
+      }
+      .previewHead h2 {
+        font-family: Georgia, serif;
+        font-size: 25px;
+        font-weight: 400;
+        margin: 0;
+      }
+      .previewHead > span {
+        border: 1px solid #ffffff45;
+        border-radius: 8px;
+        padding: 9px;
+        font-size: 11px;
+        font-weight: bold;
+      }
+      .previewCard pre {
+        white-space: pre-wrap;
+        font-family: Arial, sans-serif;
+        font-size: 11px;
+        line-height: 1.65;
+        margin: 0;
+        padding: 28px;
+        min-height: 430px;
+        color: #3d4742;
+      }
+      .actions {
+        display: grid;
+        gap: 9px;
+        padding: 0 24px 14px;
+      }
+      .actions button {
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 12px;
+        background: white;
+        font-weight: 700;
+        font-size: 12px;
+        cursor: pointer;
+      }
+      .actions .primary {
+        background: var(--lime);
+        border-color: var(--lime);
+        color: #233326;
+      }
+      .privacy {
+        text-align: center;
+        color: var(--muted);
+        font-size: 10px;
+        margin: 3px 0 20px;
+      }
+      @media (max-width: 850px) {
+        .workspace {
+          grid-template-columns: 1fr;
+        }
+        .previewCard {
+          position: static;
+        }
+        .hero {
+          padding-top: 42px;
+        }
+        .saved {
+          display: none;
+        }
+      }
+      @media (max-width: 560px) {
+        .topbar {
+          padding: 0 18px;
+        }
+        .hero,
+        .workspace {
+          padding-left: 16px;
+          padding-right: 16px;
+        }
+        .hero h1 {
+          font-size: 46px;
+        }
+        .formCard {
+          padding: 22px;
+        }
+        .two {
+          grid-template-columns: 1fr;
+        }
+        .workspace {
+          margin-bottom: 30px;
+        }
+        .previewCard pre {
+          min-height: 300px;
+        }
+      }
+      @media print {
+        .topbar,
+        .hero,
+        .formCard,
+        .actions,
+        .privacy {
+          display: none;
+        }
+        .workspace {
+          display: block;
+          margin: 0;
+          padding: 0;
+        }
+        .previewCard {
+          border: none;
+          box-shadow: none;
+        }
+        .previewHead {
+          background: white;
+          color: black;
+          border-bottom: 2px solid #222;
+        }
+        .previewCard pre {
+          font-size: 13px;
+        }
+      }
+    </style>
+    <link rel="stylesheet" href="storage.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="brandMark">R</span>
+        <div>
+          <strong>RDO Fácil</strong><small>Relatório Diário de Obra</small>
+        </div>
+      </div>
+      <span class="saved">● Dados somente neste aparelho</span>
+    </header>
+    <section class="hero">
+      <p class="eyebrow">REGISTRO DE CAMPO</p>
+      <h1>O dia da obra,<br /><em>bem documentado.</em></h1>
+      <p>
+        Preencha os dados essenciais e tenha um relatório pronto para copiar,
+        imprimir ou enviar.
+      </p>
+    </section>
+    <div class="workspace">
+      <form class="formCard">
+        <div class="sectionTitle">
+          <span>01</span>
+          <div>
+            <h2>Identificação</h2>
+            <p>Informações básicas do registro</p>
+          </div>
+        </div>
+        <div class="grid two">
+          <label
+            >Nome da obra<input
+              id="obra"
+              placeholder="Ex.: Rede de abastecimento — Setor 03" /></label
+          ><label
+            >Local / trecho<input
+              id="local"
+              placeholder="Rua, bairro ou estaca" /></label
+          ><label>Data<input id="data" type="date" /></label
+          ><label
+            >Condição do tempo<select id="clima">
+              <option>Ensolarado</option>
+              <option>Nublado</option>
+              <option>Chuva leve</option>
+              <option>Chuva intensa</option>
+              <option>Tempo instável</option>
+            </select></label
+          >
+        </div>
+        <div class="sectionTitle">
+          <span>02</span>
+          <div>
+            <h2>Produção do dia</h2>
+            <p>O que aconteceu em campo</p>
+          </div>
+        </div>
+        <label
+          >Equipe no local<input
+            id="equipe"
+            placeholder="Ex.: 1 encarregado, 2 oficiais e 3 ajudantes" /></label
+        ><label
+          >Serviços executados<textarea
+            id="servicos"
+            placeholder="Descreva os serviços, quantidades e trechos executados..."
+          ></textarea></label
+        ><label
+          >Ocorrências<textarea
+            id="ocorrencias"
+            placeholder="Registre fatos relevantes do período..."
+          ></textarea>
+        </label>
+        <div class="quick">
+          <span>Sugestões rápidas:</span
+          ><button type="button" data-occ="chuva">Chuva</button
+          ><button type="button" data-occ="agua">Ligação de água</button
+          ><button type="button" data-occ="nenhuma">Sem ocorrências</button>
+        </div>
+        <div class="sectionTitle">
+          <span>03</span>
+          <div>
+            <h2>Complementos</h2>
+            <p>Recursos e observações finais</p>
+          </div>
+        </div>
+        <div class="grid two">
+          <label
+            >Equipamentos utilizados<textarea
+              id="equipamentos"
+              placeholder="Máquinas, veículos e ferramentas..."
+            ></textarea></label
+          ><label
+            >Observações<textarea
+              id="observacoes"
+              placeholder="Pendências ou informações adicionais..."
+            ></textarea>
+          </label>
+        </div>
+      </form>
+      <aside class="previewCard">
+        <div class="previewHead">
+          <div>
+            <p>PRÉ-VISUALIZAÇÃO</p>
+            <h2>Relatório pronto</h2>
+          </div>
+          <span>RDO</span>
+        </div>
+        <pre id="relatorio"></pre>
+        <div class="actions">
+          <button class="primary" id="salvar">Salvar RDO no aparelho</button>
+          <p class="saveStatus" id="saveStatus"></p>
+          <button id="whatsapp">Enviar por WhatsApp</button>
+          <button id="copiar">Copiar texto</button>
+          <button onclick="window.print()">Imprimir / PDF</button>
+        </div>
+        <p class="privacy">Seus dados não são enviados para nenhum servidor.</p>
+      </aside>
+    </div>
+    <section class="historyCard">
+      <div class="historyInner">
+        <div class="historyTop">
+          <div><h2>RDOs salvos</h2><p>Histórico armazenado somente neste navegador</p></div>
+          <button class="newButton" id="novo" type="button">+ Novo RDO</button>
+        </div>
+        <div class="historyList" id="historico"></div>
+      </div>
+    </section>
+    <script>
+      const ids = [
+        "obra",
+        "local",
+        "data",
+        "clima",
+        "equipe",
+        "servicos",
+        "ocorrencias",
+        "equipamentos",
+        "observacoes",
+      ];
+      const el = Object.fromEntries(
+        ids.map((id) => [id, document.getElementById(id)]),
+      );
+      el.data.value = new Date().toISOString().slice(0, 10);
+      function gerar() {
+        const d = el.data.value
+          ? new Date(el.data.value + "T12:00:00").toLocaleDateString("pt-BR")
+          : "—";
+        return `RELATÓRIO DIÁRIO DE OBRA\n\nObra: ${el.obra.value || "—"}\nLocal: ${el.local.value || "—"}\nData: ${d}\nCondições climáticas: ${el.clima.value || "—"}\nEquipe: ${el.equipe.value || "—"}\n\nSERVIÇOS EXECUTADOS\n${el.servicos.value || "—"}\n\nOCORRÊNCIAS\n${el.ocorrencias.value || "Sem ocorrências."}\n\nEQUIPAMENTOS UTILIZADOS\n${el.equipamentos.value || "—"}\n\nOBSERVAÇÕES\n${el.observacoes.value || "—"}`;
+      }
+      function atualizar() {
+        document.getElementById("relatorio").textContent = gerar();
+      }
+      ids.forEach((id) => el[id].addEventListener("input", atualizar));
+      document.querySelectorAll("[data-occ]").forEach(
+        (b) =>
+          (b.onclick = () => {
+            const textos = {
+              chuva:
+                "Condições climáticas adversas (chuva) impactaram a execução dos serviços, devido ao acúmulo de água e à saturação do solo na área de trabalho.",
+              agua: "Interferência em ligação de água de residência durante a execução dos serviços, corrigida no local mediante emenda da tubulação.",
+              nenhuma: "Não foram registradas ocorrências no período.",
+            };
+            el.ocorrencias.value = textos[b.dataset.occ];
+            atualizar();
+          }),
+      );
+      document.getElementById("whatsapp").onclick = () =>
+        open("https://wa.me/?text=" + encodeURIComponent(gerar()), "_blank");
+      document.getElementById("copiar").onclick = async function () {
+        await navigator.clipboard.writeText(gerar());
+        this.textContent = "Copiado!";
+        setTimeout(() => (this.textContent = "Copiar texto"), 1800);
+      };
+      atualizar();
+    </script>
+    <script src="storage.js"></script>
+  </body>
+</html>
