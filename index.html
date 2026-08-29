@@ -348,7 +348,7 @@
         }
       }
     </style>
-    <link rel="stylesheet" href="storage.css?v=10" />
+    <link rel="stylesheet" href="storage.css?v=11" />
   </head>
   <body>
     <header class="topbar">
@@ -502,9 +502,9 @@
       function formatEfetivo(value) {
         const items = String(value || "")
           .split(/\r?\n/)
-          .map((item) => item.trim().replace(/^\*+\s*/, ""))
+          .map((item) => item.trim().replace(/^[•*-]+\s*/, ""))
           .filter(Boolean);
-        return items.length ? items.map((item) => `* ${item}`).join("\n\n") : "—";
+        return items.length ? items.map((item) => `• ${item}`).join("\n") : "—";
       }
       function gerar() {
         const d = el.data.value
@@ -538,6 +538,6 @@
       };
       atualizar();
     </script>
-    <script src="storage.js?v=10"></script>
+    <script src="storage.js?v=11"></script>
   </body>
 </html>
