@@ -452,11 +452,12 @@
             <p>PRÉ-VISUALIZAÇÃO</p>
             <h2>Relatório pronto</h2>
           </div>
-          <span>RDO</span>
+          <div class="statusWrap"><span>RDO</span><b id="statusBadge">Rascunho</b></div>
         </div>
         <pre id="relatorio"></pre>
         <div class="actions">
           <button class="primary" id="salvar">Salvar RDO no aparelho</button>
+          <button class="closeButton" id="fechar">Fechar RDO</button>
           <p class="saveStatus" id="saveStatus"></p>
           <button id="whatsapp">Enviar por WhatsApp</button>
           <button id="copiar">Copiar texto</button>
@@ -469,7 +470,7 @@
       <div class="historyInner">
         <div class="historyTop">
           <div><h2>RDOs salvos</h2><p>Histórico armazenado somente neste navegador</p></div>
-          <button class="newButton" id="novo" type="button">+ Novo RDO</button>
+          <button class="newButton" id="novo" type="button">+ Abrir RDO do dia</button>
         </div>
         <div class="historyList" id="historico"></div>
       </div>
