@@ -60,7 +60,7 @@ function reportText(report) {
   const date = report.data
     ? new Date(report.data + "T12:00:00").toLocaleDateString("pt-BR")
     : "—";
-  return `RELATÓRIO DIÁRIO DE OBRA\n\nObra: ${report.obra || "—"}\nLocal: ${report.local || "—"}\nData: ${date}\nCondições climáticas: ${report.clima || "—"}\n\nSERVIÇOS EXECUTADOS\n${report.servicos || "—"}\n\nOCORRÊNCIAS\n${report.ocorrencias || "Sem ocorrências."}\n\nEQUIPAMENTOS UTILIZADOS\n${report.equipamentos || "—"}\n\nOBSERVAÇÕES\n${report.observacoes || "—"}\n\nEFETIVO\n${formatEfetivo(report.equipe)}`;
+  return `RELATÓRIO DIÁRIO DE OBRA\n\nObra: ${report.obra || "—"}\nLocal: ${report.local || "—"}\nData: ${date}\nCondições climáticas: ${report.clima || "—"}\n\nSERVIÇOS EXECUTADOS\n${formatServicos(report.servicos)}\n\nOCORRÊNCIAS\n${report.ocorrencias || "Sem ocorrências."}\n\nEQUIPAMENTOS UTILIZADOS\n${report.equipamentos || "—"}\n\nOBSERVAÇÕES\n${report.observacoes || "—"}\n\nEFETIVO\n${formatEfetivo(report.equipe)}`;
 }
 async function shareReport(report) {
   const text = reportText(report);
@@ -166,7 +166,7 @@ document.getElementById("adicionarServico").onclick = () => {
   const text = input.value.trim().replace(/^\*+\s*/, "");
   if (!text) return;
   el.servicos.value = el.servicos.value.trim()
-    ? `${el.servicos.value.trim()}\n\n* ${text}`
+    ? `${el.servicos.value.trim().replace(/\n\s*\n/g, "\n")}\n* ${text}`
     : `* ${text}`;
   input.value = "";
   atualizar();
