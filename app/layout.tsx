@@ -15,6 +15,8 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: 'RDO Fácil — Relatório Diário de Obra',
   description: 'Preencha, gere e compartilhe seu relatório diário de obra em poucos minutos.',
+  manifest: '/manifest.webmanifest',
+  appleWebApp: { capable: true, title: 'RDO Fácil', statusBarStyle: 'default' },
 };
 
 export default function RootLayout({
@@ -24,6 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
+      <head><meta name="theme-color" content="#245c48" /><link rel="icon" href="/favicon.svg" /></head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
