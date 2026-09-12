@@ -3,10 +3,11 @@ import {PhotoRecord,updatePhoto} from './storage';
 export type SyncConfig={url:string;token:string;enabled:boolean};
 export type Snapshot={reports:Record<string,unknown>[];works:Record<string,unknown>[];streets:Record<string,unknown>[]};
 const CONFIG_KEY='rdo-facil-server-config';
+const DEFAULT_SERVER_URL='https://franerdserver.tail38777c.ts.net';
 
 export function loadSyncConfig():SyncConfig{
- try{return{url:'',token:'',enabled:false,...JSON.parse(localStorage.getItem(CONFIG_KEY)||'{}')}}
- catch{return{url:'',token:'',enabled:false}}
+ try{return{url:DEFAULT_SERVER_URL,token:'',enabled:false,...JSON.parse(localStorage.getItem(CONFIG_KEY)||'{}')}}
+ catch{return{url:DEFAULT_SERVER_URL,token:'',enabled:false}}
 }
 export function saveSyncConfig(config:SyncConfig){localStorage.setItem(CONFIG_KEY,JSON.stringify({...config,url:config.url.trim().replace(/\/$/, '')}))}
 
