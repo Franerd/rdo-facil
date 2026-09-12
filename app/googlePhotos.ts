@@ -49,7 +49,7 @@ async function api<T>(path: string, token: string, init?: RequestInit): Promise<
   const response = await fetch(`${API}${path}`, { ...init, headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json', ...(init?.headers || {}) } });
   if (!response.ok) {
     let detail = '';
-    try { detail = (await response.json())?.error?.message || ''; } catch { /* resposta sem JSON */ }
+    try { detail = ((await response.json()) as {error?:{message?:string}})?.error?.message || ''; } catch { /* resposta sem JSON */ }
     throw new Error(detail || `O Google Fotos respondeu com erro ${response.status}.`);
   }
   return response.status === 204 ? undefined as T : response.json();
