@@ -2,10 +2,11 @@
   "name": "RDO Fácil — Relatório Diário de Obra",
   "short_name": "RDO Fácil",
   "description": "Crie, organize e compartilhe relatórios diários de obra.",
-  "start_url": "/",
+  "start_url": "/rdo-facil/",
+  "scope": "/rdo-facil/",
   "display": "standalone",
   "background_color": "#f3f1ea",
   "theme_color": "#245c48",
   "lang": "pt-BR",
-  "icons": [{"src":"/favicon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+  "icons": [{"src":"/rdo-facil/favicon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
 }
