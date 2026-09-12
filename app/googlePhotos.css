@@ -1,0 +1,32 @@
+.photoActions {
+  display: flex;
+  justify-content: center;
+  gap: 9px;
+}
+
+.photoActions .addPhotos,
+.googlePhotos {
+  border-radius: 10px;
+  padding: 12px 22px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.photoActions .addPhotos {
+  border: 1px solid var(--green);
+}
+
+.googlePhotos {
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--green);
+}
+
+.googlePhotos:disabled {
+  opacity: .55;
+  cursor: wait;
+}
+
+@media (max-width: 420px) {
+  .photoActions { flex-direction: column; }
+}
